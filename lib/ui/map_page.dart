@@ -22,7 +22,7 @@ class _MapScreenState extends State<MapScreen> {
 
   _init() {
     var routes = context.read<MovementCubit>().routes;
-    currentLatLng = routes[0];
+    currentLatLng = routes[routes.length-1];
     initialCameraPosition = CameraPosition(
       target: LatLng(
         routes[routes.length-1].latitude,
@@ -55,7 +55,7 @@ class _MapScreenState extends State<MapScreen> {
               onCameraMove: (position) {
                 cameraPosition = position;
               },
-              markers: mapMarkers,
+              markers: context.read<MovementCubit>().markers,
               mapType: MapType.hybrid,
               onMapCreated: (controller) {},
               initialCameraPosition: CameraPosition(

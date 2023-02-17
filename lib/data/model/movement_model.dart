@@ -7,7 +7,7 @@ class MovementModel {
 
   factory MovementModel.fromJson(Map<String, dynamic> json) {
     return MovementModel(
-        lat: json["lat"], long: json['lat'], time: json['time']);
+        lat: json["lat"], long: json['long'], time: json['time']);
   }
 
   toJson() => {"lat": lat, "long": long, "time": time};
