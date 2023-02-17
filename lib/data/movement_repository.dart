@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
+import 'package:workmanagers_example/data/model/movement_model.dart';
 
 class MovementRepository{
   Database? database;
@@ -33,34 +35,18 @@ class MovementRepository{
         ")");
   }
 
-  Future addMovement(ContactModel contactModel) async {
+  Future addMovement(MovementModel movementModel) async {
     Database db = await getDb();
-    var id = await db.insert(tableName, contactModel.toJson());
-    print("mana id $id");
-    return contactModel.copyWith(id: id);
-
+    await db.insert(tableName, movementModel.toJson());
+    debugPrint("Movement added to Db");
   }
 
-  Future<List> getContact() async {
+  Future<List> getMovements() async {
     Database db = await getDb();
 
-    var result = await db.query(tableName, columns: ["id", "name", "number", "createdAt"]);
+    var result = await db.query(tableName, columns: ["lat", "long", "time"]);
 
     return result.toList();
   }
 
-  Future updateContact(ContactModel contactModel) async {
-    Database db = await getDb();
-    print("Mana id ${contactModel.id}");
-    var id=  await db.update(tableName, contactModel.toJson(), where: "id = ?", whereArgs: [contactModel.id]);
-    return contactModel.copyWith(id: id);
-
-  }
-
-  Future<int> deleteContact(int id) async {
-    print("$id dagi contact o'chdi");
-    Database db = await getDb();
-
-    return await db.delete(tableName, where: 'id = ?', whereArgs: [id]);
-  }
 }
