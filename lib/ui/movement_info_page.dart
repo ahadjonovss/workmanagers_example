@@ -32,6 +32,13 @@ class MovementInfoPage extends StatelessWidget {
          if (state is GotMovementInSuccess) {
            List<MovementModel> movements = state.movements;
            context.read<MovementCubit>().initRoutes(movements);
+           if(state.movements.isEmpty){
+             return IconButton(
+                 onPressed: () async {
+                   await Geolocator.requestPermission();
+                 },
+                 icon: const Icon(Icons.add));
+           }
            return ListView.builder(
                itemCount: movements.length,
                shrinkWrap: true,
