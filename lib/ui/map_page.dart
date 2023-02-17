@@ -61,7 +61,7 @@ class _MapScreenState extends State<MapScreen> {
                 // controller.;
               },
               initialCameraPosition: CameraPosition(
-                  zoom: 11,
+                  zoom: widget.currentLocation==null?19.151926040649414:11.toDouble(),
                   target:
                   currentLatLng!),
             ),
