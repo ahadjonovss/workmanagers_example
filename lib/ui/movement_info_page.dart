@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:workmanagers_example/bloc/location_permission_cubit/location_permission_cubit.dart';
 import 'package:workmanagers_example/bloc/movement_cubit/movement_cubit.dart';
 import 'package:workmanagers_example/data/model/movement_model.dart';
 import 'package:workmanagers_example/data/repositories/movement_repository.dart';
@@ -14,7 +12,6 @@ class MovementInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // context.read<LocationPermissionCubit>().listenPermissionStatus();
     return Scaffold(
       appBar: AppBar(
         title: Text("Movements"),
@@ -36,25 +33,18 @@ class MovementInfoPage extends StatelessWidget {
           if (snapshot.hasData) {
             List<MovementModel> movements = snapshot.data!;
             context.read<MovementCubit>().initRoutes(movements);
-
-            //print("Movements: $movements");
             return ListView.builder(
                 itemCount: movements.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) => LocationItem(
                       movementModel: movements[index],
                     ));
-
-            // return IconButton(onPressed: () async {
-            //   // await Geolocator.requestPermission();
-            //   // Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-            //   // await MovementRepository().addMovement(MovementModel(lat: position.latitude, long: position.longitude, time: DateTime.now().toString()));
-            //   // print("Movement added");
-            //
-            //   ApiService().getLocation();
-            // }, icon: Icon(Icons.add));
           }
-          return CircularProgressIndicator();
+          return IconButton(
+              onPressed: () async {
+                await Geolocator.requestPermission();
+              },
+              icon: const Icon(Icons.add));
         },
       ),
     );

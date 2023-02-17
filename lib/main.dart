@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workmanager/workmanager.dart';
-import 'package:workmanagers_example/bloc/location_permission_cubit/location_permission_cubit.dart';
 import 'package:workmanagers_example/bloc/movement_cubit/movement_cubit.dart';
 import 'package:workmanagers_example/data/model/movement_model.dart';
 import 'package:workmanagers_example/data/repositories/movement_repository.dart';
 import 'package:workmanagers_example/ui/movement_info_page.dart';
 import 'package:geolocator/geolocator.dart';
 
-@pragma('vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
+@pragma('vm:entry-point') /
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
       await Future.delayed(const Duration(seconds: 2));
@@ -28,7 +27,6 @@ void main() {
   Workmanager().registerPeriodicTask("task-identifier", "simpleTask",frequency: const Duration(minutes: 15));
   runApp( MultiBlocProvider(
     providers: [
-      BlocProvider(create: (context) => LocationPermissionCubit(),),
       BlocProvider(create: (context) => MovementCubit(),),
     ],
       child: MyApp()));
