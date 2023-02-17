@@ -6,35 +6,15 @@ class LocationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..scrollTo(0, 900)
-      ..setBackgroundColor(const Color(0x00000000))
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
-          onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://www.youtube.com/')) {
-              return NavigationDecision.prevent;
-            }
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..loadRequest(Uri.parse("https://www.latlong.net/c/?lat=41.299496&long=69.240074"));
     return Container(
       margin: EdgeInsets.all(12),
       height: 60,
       width: 400,
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
           color: Colors.blue
       ),
-      child: WebViewWidget(controller: controller),
+      child: Text("Some"),
     );
   }
 }

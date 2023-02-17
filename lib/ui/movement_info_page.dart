@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:workmanagers_example/bloc/location_permission_cubit/location_permission_cubit.dart';
+import 'package:workmanagers_example/bloc/movement_cubit/movement_cubit.dart';
 import 'package:workmanagers_example/data/model/movement_model.dart';
 import 'package:workmanagers_example/data/repositories/movement_repository.dart';
 import 'package:workmanagers_example/service/api_service.dart';
@@ -28,6 +29,8 @@ class MovementInfoPage extends StatelessWidget {
         builder: (context, snapshot) {
           if(snapshot.hasData){
             List<MovementModel> movements = snapshot.data!;
+            context.read<MovementCubit>().initRoutes(movements);
+
             print("Movements: $movements");
               return ListView.builder(
               itemCount: movements.length,

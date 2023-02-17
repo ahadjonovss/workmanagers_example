@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:workmanagers_example/bloc/location_permission_cubit/location_permission_cubit.dart';
+import 'package:workmanagers_example/bloc/movement_cubit/movement_cubit.dart';
 import 'package:workmanagers_example/data/model/movement_model.dart';
 import 'package:workmanagers_example/data/repositories/movement_repository.dart';
 import 'package:workmanagers_example/ui/movement_info_page.dart';
@@ -27,7 +28,8 @@ void main() {
   Workmanager().registerPeriodicTask("task-identifier", "simpleTask",frequency: const Duration(minutes: 15));
   runApp( MultiBlocProvider(
     providers: [
-      BlocProvider(create: (context) => LocationPermissionCubit(),)
+      BlocProvider(create: (context) => LocationPermissionCubit(),),
+      BlocProvider(create: (context) => MovementCubit(),),
     ],
       child: MyApp()));
 }
