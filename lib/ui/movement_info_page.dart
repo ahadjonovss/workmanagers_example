@@ -20,20 +20,20 @@ class MovementInfoPage extends StatelessWidget {
         builder: (context, snapshot) {
           if(snapshot.hasData){
             List<MovementModel> movements = snapshot.data!;
-            // print("Movements: $movements");
-              // return ListView.builder(
-              // itemCount: movements.length,
-              // shrinkWrap: true,
-              // itemBuilder: (context, index) => LocationItem());
+            print("Movements: $movements");
+              return ListView.builder(
+              itemCount: movements.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) => LocationItem());
 
-            return IconButton(onPressed: () async {
-              // await Geolocator.requestPermission();
-              // Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-              // await MovementRepository().addMovement(MovementModel(lat: position.latitude, long: position.longitude, time: DateTime.now().toString()));
-              // print("Movement added");
-
-              ApiService().getLocation();
-            }, icon: Icon(Icons.add));
+            // return IconButton(onPressed: () async {
+            //   // await Geolocator.requestPermission();
+            //   // Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+            //   // await MovementRepository().addMovement(MovementModel(lat: position.latitude, long: position.longitude, time: DateTime.now().toString()));
+            //   // print("Movement added");
+            //
+            //   ApiService().getLocation();
+            // }, icon: Icon(Icons.add));
           }
           return CircularProgressIndicator();
         },
