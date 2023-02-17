@@ -21,7 +21,7 @@ class LocationItem extends StatelessWidget {
           Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen(currentLocation: LatLng(movement.lat.toDouble(),movement.long.toDouble()),)));
         },icon: const Icon(Icons.map,color: Colors.white,),
         ),
-        title: Text("${date.day}.${date.month}..${date.year} / ${date.hour}:${date.minute}"),
+        title: Text("${date.day}.${date.month}.${date.year} / ${date.hour}:${date.minute}"),
         subtitle: Text("Lat: ${movement.lat}  - Long: ${movement.long}"),
         leading: const Icon(Icons.location_city,),
       ),
