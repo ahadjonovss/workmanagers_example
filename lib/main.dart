@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workmanager/workmanager.dart';
+import 'package:workmanagers_example/bloc/location_permission_cubit/location_permission_cubit.dart';
+import 'package:workmanagers_example/data/model/movement_model.dart';
+import 'package:workmanagers_example/data/repositories/movement_repository.dart';
 import 'package:workmanagers_example/ui/movement_info_page.dart';
-
+import 'package:geolocator/geolocator.dart';
 
 @pragma('vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
 void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) {
-    print("Native called background task: salom"); //simpleTask will be emitted here.
+  Workmanager().executeTask((task, inputData) async {
+      await Future.delayed(const Duration(seconds: 2));
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      await MovementRepository().addMovement(MovementModel(lat: position.latitude, long: position.longitude, time: DateTime.now().toString()));
+      print("Movement added");
+
     return Future.value(true);
   });
 }
@@ -16,8 +24,12 @@ void main() {
   Workmanager().initialize(
       callbackDispatcher,
       isInDebugMode: true);
-  Workmanager().registerOneOffTask("task-identifier", "simpleTask");
-  runApp(const MyApp());
+  Workmanager().registerPeriodicTask("task-identifier", "simpleTask",frequency: const Duration(minutes: 15));
+  runApp( MultiBlocProvider(
+    providers: [
+      BlocProvider(create: (context) => LocationPermissionCubit(),)
+    ],
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

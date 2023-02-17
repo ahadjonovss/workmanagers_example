@@ -41,12 +41,14 @@ class MovementRepository{
     debugPrint("Movement added to Db");
   }
 
-  Future<List> getMovements() async {
+  Future<List<MovementModel>> getMovements() async {
     Database db = await getDb();
 
     var result = await db.query(tableName, columns: ["lat", "long", "time"]);
 
-    return result.toList();
+    List<MovementModel> movements = result.map((e) => MovementModel.fromJson(e)).toList();
+
+    return movements;
   }
 
 }
