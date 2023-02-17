@@ -6,6 +6,7 @@ import 'package:workmanagers_example/data/model/movement_model.dart';
 import 'package:workmanagers_example/data/repositories/movement_repository.dart';
 import 'package:workmanagers_example/service/api_service.dart';
 import 'package:workmanagers_example/ui/location_item.dart';
+import 'package:workmanagers_example/ui/map_page.dart';
 
 class MovementInfoPage extends StatelessWidget {
   const MovementInfoPage({Key? key}) : super(key: key);
@@ -14,7 +15,14 @@ class MovementInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // context.read<LocationPermissionCubit>().listenPermissionStatus();
     return Scaffold(
-      appBar: AppBar(title: Text("Movements"),),
+      appBar: AppBar(title: Text("Movements"),
+        actions: [
+          IconButton(onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen(),));
+
+          }, icon: Icon(Icons.next_plan))
+        ],
+      ),
       body: FutureBuilder(
         future: MovementRepository().getMovements(),
         builder: (context, snapshot) {

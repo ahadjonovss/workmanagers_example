@@ -29,7 +29,7 @@ class LocationItem extends StatelessWidget {
       ..loadRequest(Uri.parse("https://www.latlong.net/c/?lat=41.299496&long=69.240074"));
     return Container(
       margin: EdgeInsets.all(12),
-      height: 400,
+      height: 60,
       width: 400,
       decoration: BoxDecoration(
           color: Colors.blue

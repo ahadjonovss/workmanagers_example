@@ -42,6 +42,7 @@ dependencies:
   equatable: ^2.0.5
   webview_flutter: ^4.0.2
   dio: ^5.0.0
+  google_maps_flutter: ^2.2.3
 
 dev_dependencies:
   flutter_test:
