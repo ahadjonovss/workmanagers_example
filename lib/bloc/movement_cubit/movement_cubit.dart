@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
 import 'package:workmanagers_example/data/model/movement_model.dart';
+import 'package:workmanagers_example/data/repositories/movement_repository.dart';
 
 part 'movement_state.dart';
 
 class MovementCubit extends Cubit<MovementState> {
-  MovementCubit() : super(MovementInitial());
+  MovementCubit() : super(MovementInitial()){
+    getMovements();
+  }
 
 
   List<LatLng> routes = [];
   Set<Marker> markers = {};
+
+
 
   initRoutes(List<MovementModel> movements) async {
     for (int i = 0; i < movements.length; i++) {
@@ -22,5 +27,10 @@ class MovementCubit extends Cubit<MovementState> {
             markerId: MarkerId(i.toString())));
     }
     // print("MANA $markers");
+  }
+
+  getMovements() async {
+    List<MovementModel> movements= await MovementRepository().getMovements();
+    emit(GotMovementInSuccess(movements: movements));
   }
 }
