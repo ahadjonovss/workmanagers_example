@@ -37,7 +37,7 @@ class MovementInfoPage extends StatelessWidget {
                 itemCount: movements.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) => LocationItem(
-                      movementModel: movements[index],
+                      movement: movements[index],
                     ));
           }
           return IconButton(

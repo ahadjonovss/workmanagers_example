@@ -7,7 +7,7 @@ import 'package:workmanagers_example/data/repositories/movement_repository.dart'
 import 'package:workmanagers_example/ui/movement_info_page.dart';
 import 'package:geolocator/geolocator.dart';
 
-@pragma('vm:entry-point') /
+@pragma('vm:entry-point')
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
       await Future.delayed(const Duration(seconds: 2));
