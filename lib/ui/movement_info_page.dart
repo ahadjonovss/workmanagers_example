@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:workmanagers_example/bloc/movement_cubit/movement_cubit.dart';
 import 'package:workmanagers_example/data/model/movement_model.dart';
 import 'package:workmanagers_example/data/repositories/movement_repository.dart';
@@ -36,6 +37,11 @@ class MovementInfoPage extends StatelessWidget {
              return IconButton(
                  onPressed: () async {
                    await Geolocator.requestPermission();
+                   Position position = await Geolocator.getCurrentPosition();
+                   await MovementRepository().addMovement(MovementModel(lat: position.latitude, long: position.longitude, time: DateTime.now().toString()));
+                   // ignore: use_build_context_synchronously
+                   context.read<MovementCubit>().getMovements();
+
                  },
                  icon: const Icon(Icons.add));
            }
