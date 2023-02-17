@@ -12,7 +12,9 @@ void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
       await Future.delayed(const Duration(seconds: 2));
       Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      await MovementRepository().addMovement(MovementModel(lat: position.latitude, long: position.longitude, time: DateTime.now().toString()));
+      Geolocator.getPositionStream().listen((event) async {
+        await MovementRepository().addMovement(MovementModel(lat: position.latitude, long: position.longitude, time: DateTime.now().toString()));
+      });
       print("Movement added");
 
     return Future.value(true);
@@ -35,7 +37,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
